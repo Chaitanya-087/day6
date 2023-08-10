@@ -1,0 +1,30 @@
+<web-app>
+	<servlet>
+		<servlet-name>HelloServlet</servlet-name>
+		<servlet-class>com.learning.hello.HelloServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FibonaciiServlet</servlet-name>
+		<servlet-class>com.learning.hello.FibonaciiServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>HelloServlet</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>FibonaciiServlet</servlet-name>
+		<url-pattern>/fibonacii</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PasswordValidatorServlet</servlet-name>
+		<servlet-class>com.learning.hello.PasswordValidatorServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PasswordValidatorServlet</servlet-name>
+		<url-pattern>/password-validator</url-pattern>
+	</servlet-mapping>
+</web-app>
