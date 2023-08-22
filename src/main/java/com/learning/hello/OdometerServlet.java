@@ -40,9 +40,17 @@ public class OdometerServlet extends HttpServlet {
 		    templateEngine.setTemplateResolver(templateResolver);
 	}
 	
-	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String action = req.getParameter("action");
+		if (action == null || action.equals("reset")){
+			odometer.reset();
+		}
+		else if (action.equals("prev")) {
+			odometer.decrement();
+		} else if (action.equals("next")) {
+			odometer.increment();
+		} 
 	    final IWebExchange webExchange = this.application.buildExchange(req, res);
 	    final WebContext ctx = new WebContext(webExchange);
 	    ctx.setVariable("reading", odometer.getReading());

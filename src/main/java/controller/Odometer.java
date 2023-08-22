@@ -111,7 +111,7 @@ public class Odometer {
   /**
    * This mutates the reading.
    */
-  public void decrementReading() {
+  public void decrement() {
     do {
       if (reading == getMinReading(getSize(reading))) {
         reading = getMaxReading(getSize(reading));
