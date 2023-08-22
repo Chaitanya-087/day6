@@ -41,8 +41,17 @@ public class OdometerServlet extends HttpServlet {
 	}
 	
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {		
+	    final IWebExchange webExchange = this.application.buildExchange(req, res);
+	    final WebContext ctx = new WebContext(webExchange);
+	    ctx.setVariable("reading", odometer.getReading());
+	    templateEngine.process("odometer", ctx, res.getWriter());
+	}
+	
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String action = req.getParameter("action");
+		String size = req.getParameter("size");
+					
 		if (action == null || action.equals("reset")){
 			odometer.reset();
 		}
@@ -51,11 +60,13 @@ public class OdometerServlet extends HttpServlet {
 		} else if (action.equals("next")) {
 			odometer.increment();
 		} 
-	    final IWebExchange webExchange = this.application.buildExchange(req, res);
-	    final WebContext ctx = new WebContext(webExchange);
-	    ctx.setVariable("reading", odometer.getReading());
-	    templateEngine.process("odometer", ctx, res.getWriter());
+		else if (action.equals("resize")) {
+			int temp = size.isEmpty() ? 4 : Integer.parseInt(size);
+			odometer = new Odometer(temp);
+		}
+		
+		res.sendRedirect(req.getContextPath() + "/odometer");
+//		doGet(req, res);
+		
 	}
-	
-	
 }

@@ -7,16 +7,18 @@
 </head>
 
 <body>
-	<h1>Odometer</h1>
-	<a href="odometer?action=prev">
-		prev
-	</a>
-	<span th:text="${reading}"></span>
-	<a href="odometer?action=next">
-		next
-	</a>
-	<br />
-	<a href="odometer?action=reset">reset</a>
+	<h1>Wierd Odometer</h1>
+	<form action="odometer" method="post">
+		<input type="submit" name="action" value="prev" />
+		<input type="submit" name="action" value="next" />
+		<input type="submit" name="action" value="reset" />
+		
+		<input type="text" name="size" placeholder="4">
+		<input type="submit"name="action" value="resize" />
+	</form>
+	<p>
+		<span th:text="${reading}"></span>
+	</p>
 </body>
 
 </html>

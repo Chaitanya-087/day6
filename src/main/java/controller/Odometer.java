@@ -5,7 +5,7 @@ public class Odometer {
   private static final String DIGITS = "123456789";
 
   private int reading;
-
+  
   private static int getMinReading(int size) {
     return Integer.valueOf(DIGITS.substring(0, size));
   }
