@@ -21,10 +21,8 @@ public class MangathaController {
 	public void processGet(IWebExchange webExchange,TemplateEngine templateEngine,HttpServletResponse res) throws IOException{
 		final WebContext ctx = new WebContext(webExchange);
 		Writer out = res.getWriter();
-//		String action = webExchange.getRequest().getParameterValue("action");
-		if (model.getWinner() != null) {
-			System.out.println(model.getWinner());			
-		}
+		ctx.setVariable("winner", model.getWinner());		
+		ctx.setVariable("isWinner", model.getIsWinnerAvailable());
 		ctx.setVariable("isGameStart", model.getIsGameStart());
 		ctx.setVariable("inPile", model.getInPile());
 		ctx.setVariable("outPile", model.getOutPile());

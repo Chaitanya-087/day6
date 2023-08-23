@@ -4,13 +4,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link rel="stylesheet" href="/learning-web/static/styles.css" />
 </head>
 
 <body>
 	<main>
 		<section class="game-container">
 			<div class="deck-container">
-				<div></div>
+				<div class=""></div>
 				<div></div>
 				<div></div>
 			</div>
@@ -122,7 +123,15 @@
 				</tbody>
 			</table>
 		</div>
-
+		<div th:if="${isWinner}">
+			<h2>
+				winnner
+			</h2>
+			<p th:text="${winner.bet}"></p>
+			<p th:text="${winner.name}"></p>
+			<p th:text="${winner.chosenCard}"></p>
+			<p th:text="${winner.chosenPosition}"></p>
+		</div>
 	</main>
 </body>
 
