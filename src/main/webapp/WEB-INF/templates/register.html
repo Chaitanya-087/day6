@@ -1,138 +1,236 @@
 <!DOCTYPE html>
 <html xmlns="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/learning-web/static/styles.css" />
+    <style>
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: 0;
+      }
 
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link rel="stylesheet" href="/learning-web/static/styles.css" />
-</head>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: whitesmoke;
+        display: flex;
+        justify-content: center;
+      }
+      main {
+        margin: auto;
+        width: 100vh;
+        max-width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+      }
+      #details {
+        border-collapse: collapse;
+        width: max-content;
+      }
 
-<body>
-	<main>
-		<section class="game-container">
-			<div class="deck-container">
-				<div class=""></div>
-				<div></div>
-				<div></div>
-			</div>
+      #details th,
+      #details td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+        font-size: 18px;
+        width: min-content;
+      }
+      #details th {
+        background-color: #1877f2;
+        color: white;
+        cursor: pointer;
+      }
+      #details th:hover {
+        background-color: #0d5cb6;
+      }
+      #details tr:hover {
+        background-color: #dad8d8;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+      }
+      .piles {
+        display: flex;
+        flex-direction: column;
+      }
+      .in,
+      .out {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+		flex-wrap: wrap;
+		gap: 5px;
+      }
+      .card {
+        width: 40px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+		background-color: white;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .game-container {
+        display: flex;
+        flex-direction: column;
+      }
+      #form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: white;
+        padding: 1.5rem;
+        background-color: white;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .toggle-type {
+        all: unset;
+        user-select: none;
+        cursor: pointer;
+        width: 50px;
+        height: 24px;
+        border-radius: 2px;
+        background-color: #0d5cb6;
+        text-align: center;
+        color: white;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.1px;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
 
-			<div class="piles">
-				<div class="in">
-					<div class="card" th:each="card: ${inPile}">
-						<div th:switch="${card.suit}">
-							<p th:case="1">clubs</p>
-							<p th:case="2">diamond</p>
-							<p th:case="3">hearts</p>
-							<p th:case="4">spades</p>
-						</div>
-						<div th:switch="${card.rank}">
-							<p th:case="1">ace</p>
-							<p th:case="*">
-								<span th:text="${card.rank}"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="out">
-					<div class="card" th:each="card: ${outPile}">
-						<div th:switch="${card.suit}">
-							<p th:case="1">clubs</p>
-							<p th:case="2">diamond</p>
-							<p th:case="3">hearts</p>
-							<p th:case="4">spades</p>
-						</div>
-						<div th:switch="${card.rank}">
-							<p th:case="1">ace</p>
-							<p th:case="*">
-								<span th:text="${card.rank}"></span>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<form action="mangatha" method="post">
-				<div th:if="${isGameStart}">
-					<input type="submit" name="action" value="draw" />
-				</div>
-				<div th:unless="${isGameStart}">
-					<input type="submit" name="action" value="play" />
-				</div>
-				<input type="submit" name="action" value="reset" />
-			</form>
-		</section>
+  <body>
+    <main>
+      <div th:unless="${isGameStart}">
+        <form id="form" action="mangatha" method="post">
+          <span>play registration</span>
+          <div>
+            <label for="name">name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="player name"
+              name="name"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="bet">net amount</label>
+            <input type="number" min="5" name="bet" required />
+          </div>
+          <div>
+            <span>pick a position</span>
+            <div>
+              <input type="radio" value="IN" id="in" name="position" />
+              <label for="in">in pile</label>
+            </div>
+            <div>
+              <input type="radio" value="OUT" id="out" name="position" />
+              <label for="out">out pile</label>
+            </div>
+          </div>
+          <div>
+            <label for="rank">Rank: </label>
+            <select name="rank" id="rank">
+              <option value="A">Ace</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="J">J</option>
+              <option value="Q">Q</option>
+              <option value="K">K</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="suit">Suite: </label>
+            <select name="suit" id="suit">
+              <option value="H">Hearts</option>
+              <option value="D">Diamonds</option>
+              <option value="C">Clubs</option>
+              <option value="S">Spades</option>
+            </select>
+          </div>
+
+          <input type="submit" name="action" value="add" />
+        </form>
+      </div>
+
+      <div th:if="${players.size > 0}">
+        <table id="details">
+          <thead>
+            <tr>
+              <th>bet</th>
+              <th>name</th>
+              <th>chosen card</th>
+              <th>chosen position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="player: ${players}">
+              <td th:text="${player.bet}"></td>
+              <td th:text="${player.name}"></td>
+              <td th:text="${player.chosenCard}"></td>
+              <td th:text="${player.chosenPosition}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+	  <form action="mangatha" method="post">
+		<div th:if="${isGameStart}">
+		  <input type="submit" name="action" value="draw" />
+		</div>
 		<div th:unless="${isGameStart}">
-			<form action="mangatha" method="post">
-				<label for="name">name</label>
-				<input type="text" id="name" placeholder="player name" name="name" required />
-
-				<label for="bet">net amount</label>
-				<input type="number" min="5" name="bet" required />
-
-				<input type="radio" value="IN" id="in" name="position" />
-				<label for="in">in pile</label>
-
-				<input type="radio" value="OUT" id="out" name="position" />
-				<label for="out">out pile</label>
-
-				<label for="rank">Rank: </label>
-				<select name="rank" id="rank">
-					<option value="A">Ace</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-					<option value="J">J</option>
-					<option value="Q">Q</option>
-					<option value="K">K</option>
-				</select>
-
-				<label for="suit">Suite: </label>
-				<select name="suit" id="suit">
-					<option value="H">Hearts</option>
-					<option value="D">Diamonds</option>
-					<option value="C">Clubs</option>
-					<option value="S">Spades</option>
-				</select>
-
-				<input type="submit" name="action" value="add" />
-
-			</form>
+		  <input type="submit" name="action" value="play" />
 		</div>
-		<div th:if="${players.size > 0}">
-			<table>
-				<thead>
-					<tr>
-						<th>bet</th>
-						<th>name</th>
-						<th>chosen card</th>
-						<th>chosen position</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="player: ${players}">
-						<td th:text="${player.bet}"></td>
-						<td th:text="${player.name}"></td>
-						<td th:text="${player.chosenCard}"></td>
-						<td th:text="${player.chosenPosition}"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div th:if="${isWinner}">
-			<h2>
-				winnner
-			</h2>
-			<p th:text="${winner.bet}"></p>
-			<p th:text="${winner.name}"></p>
-			<p th:text="${winner.chosenCard}"></p>
-			<p th:text="${winner.chosenPosition}"></p>
-		</div>
-	</main>
-</body>
+		<input type="submit" name="action" value="reset" />
+	  </form>
+      <section class="game-container">
+        <div class="wrapper">
+          <div class="piles">
+            <div class="in">
+              <div class="card" th:each="card: ${inPile}">
+                <p th:text="${card}"></p>
+              </div>
+            </div>
+            <div class="out">
+              <div class="card" th:each="card: ${outPile}">
+                <p th:text="${card}"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+	  <div th:if="${isWinner}">
+        <h2>✨winnner✨</h2>
+        <p th:text="${winner.bet}"></p>
+        <p th:text="${winner.name}"></p>
+        <p th:text="${winner.chosenCard}"></p>
+        <p th:text="${winner.chosenPosition}"></p>
+      </div>
 
+    </main>
+  </body>
 </html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="/learning-web/static/2584.css" />
+	<!-- <link rel="icon" href="#"> -->
+	<title>2584</title>
+</head>
+
+<body>
+	<main>
+		<div class="container">
+			<div class="heading">
+				<h1 class="title">2584</h1>
+				<div class="score-container">
+					<span class="score-title">score</span>
+					<p class="score" th:text="${game.score}">0</p>
+				</div>
+			</div>
+			<div class="game-container">
+				<div class="game-message"></div>
+				<div class="game-grid">
+					<div class="cell" th:each="val : ${game.board}">
+						<p th:text="${val}"></p>
+					</div>
+				</div>
+			</div>
+			<div class="rules-container">
+				<p class="rules">
+					<span class="highlight">How to play:</span> Use your arrow keys to
+					move the tiles. If two tiles are successive items in Fibonacci
+					Sequence, when they touch, they merge into one!
+				</p>
+			</div>
+		</div>
+		<form action="" method="post">
+			<button type="submit" id="up" name="key" value="up"  hidden>up</button>
+			<button type="submit" id="down" name="key" value="down" hidden>down</button>
+			<button type="submit" id="left" name="key" value="left" hidden>left</button>
+			<button type="submit" id="right" name="key" value="right" hidden>right</button>
+		</form>
+
+	</main>
+	<script>
+		const cellColors = {
+			"1" : "#eee4da",
+			"2" : "#ede0c8",
+			"3" : "#f2b179",
+			"5" : "#f59563",
+			"8" :  "#f67c5f",
+			"13" : "#f65e3b",
+			"21" : "#edcf72",
+			"34" : "#edcc61",
+			"55" : "#edc850",
+			"89" : "#edc53f",
+			"144" : "#edc22e",
+			"233" : "blue",
+			"377": "blue",
+			"610": "green",
+			"987" : "green",
+			"1597": "green",
+			"2584" : "green"
+			}
+			
+			const cells = document.querySelectorAll(".cell")
+			const updateColors = () => {
+				cells.forEach(cell => {
+					const val = cell.querySelector("p").innerHTML;
+					if (val !== "") {
+						cell.style.background = cellColors[val];
+					} else {
+						cell.style.background = "white";
+					}
+				})
+			}
+			updateColors();
+		document.addEventListener("keydown", event => {
+			if (event.key == "ArrowUp" || event.key == "ArrowDown" || event.key == "ArrowLeft" || event.key == "ArrowRight") {
+				event.preventDefault()
+				switch (event.key) {
+					case "ArrowUp": document.getElementById("up").click(); break;
+					case "ArrowDown": document.getElementById("down").click(); break;
+					case "ArrowLeft": document.getElementById("left").click(); break;
+					case "ArrowRight": document.getElementById("right").click();
+				}
+			}
+
+		});
+	</script>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cards.Card;
@@ -15,6 +16,7 @@ public class Mangatha {
 	private boolean isGameStart;
 	private Player winner;
 	private boolean isWinnerAvailable;
+	
 	public static Mangatha get() {
 		if (inst == null) inst = new Mangatha();
 		return inst;
@@ -25,6 +27,10 @@ public class Mangatha {
 	}
 	
 	public void performAction() {
+		if (deck.isEmpty()) {
+			isGameStart = false;
+			isWinnerAvailable = false;
+		}
 		inPile.add(deck.drawTop());
 		outPile.add(deck.drawTop());
 	}
@@ -75,6 +81,7 @@ public class Mangatha {
 	}
 	
 	public Player getWinner() {
+		
 		for (Player player : players) {
 			if (isInsidePile(player, "IN") || isInsidePile(player, "OUT")) {
 				winner = new Player(player.getName(),accumulateBet(),player.getChosenPosition(),player.getChosenCard());
@@ -88,5 +95,9 @@ public class Mangatha {
 	
 	public boolean getIsWinnerAvailable() {
 		return isWinnerAvailable;
+	}
+	
+	public Deck getDeck() {
+		return deck;
 	}
 }

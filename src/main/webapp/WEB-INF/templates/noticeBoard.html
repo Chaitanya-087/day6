@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+		rel="stylesheet">
+	<title>Notice Board</title>
+	<link rel="stylesheet" href="/learning-web/static/noticeBoardStyles.css" />
+</head>
+
+<body>
+	<main>
+		<section>
+			<h1>Create Notice</h1>
+
+			<form class="notice-form" id="form" action="" method="post">
+				<input class="notice-input" name="title" id="title" type="text" placeholder="Enter title" />
+				<textarea class="notice-input" name="content" id="content" cols="30" rows="10"
+					placeholder="Enter content"></textarea>
+				<input class="notice-input" type="text" name="name" placeholder="contact name" />
+				<input class="notice-input" type="number" size="10" name="number" placeholder="phone number" id="contact" />
+				<input type="submit" class="add-button" value="add" />
+			</form>
+		</section>
+
+		<section class="notices-container">
+			<h2>Notice Board</h2>
+			<ul class="notice-group" id="notices">
+				<li class="notice" th:each="notice: ${model.notices}">
+					<h3 class="title" th:text="${notice.title}">title</h3>
+					<p class="content" th:text="${notice.content}">this is content of notice</p>
+					<p class="contact" th:text="${notice.contact.number}">contact number</p>
+					<p class="name" th:text="${notice.contact.name}">contact name</span>
+					<p class="createdAt" th:text="${notice.createdAt}">createdAt</span>
+				</li>
+			</ul>
+		</section>
+	</main>
+</body>
+
+</html>
