@@ -1,7 +1,6 @@
 package com.learning.hello;
 
 import java.io.IOException;
-import java.util.Random;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -10,7 +9,8 @@ import org.thymeleaf.templateresolver.WebApplicationTemplateResolver;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
-import controller.HiLoController;
+import com.learning.hello.controller.HiLoController;
+
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -59,7 +59,6 @@ public class HighLowGameServlet extends HttpServlet {
 	    final WebContext ctx = new WebContext(webExchange);
 	    ctx.setVariable("feedback", hlc.feedback());
 	    templateEngine.process("hilo", ctx, out);
-	    //out.print(String.format(getHtmlPage(), hlc.feedback()));
 	    if (hlc.judge() == 0)
 	      hlc.reset();
 	}

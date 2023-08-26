@@ -13,12 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-//@WebServlet("/validate")
+@WebServlet("/validate")
 public class PasswordValidatorServlet extends HttpServlet{
-	
+
+	private static final long serialVersionUID = 4512297672967345793L;
 	@Override
 	public void doPost(HttpServletRequest req,HttpServletResponse res) throws ServerException, IOException{
-		Path path = Paths.get("/home/chaitanya/eclipse-workspace/learning-web/src/main/java/com/learning/hello/bannedPasswords.txt");
+		Path path = Paths.get("/home/chaitanya/bannedPasswords.txt");
 		String matchString = String.join("", Files.readAllLines(path));
 		String pwd = req.getParameter("password");
 		PrintWriter out = res.getWriter();

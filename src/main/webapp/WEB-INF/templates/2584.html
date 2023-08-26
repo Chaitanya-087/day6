@@ -81,7 +81,8 @@
 			}
 			updateColors();
 		document.addEventListener("keydown", event => {
-			if (event.key == "ArrowUp" || event.key == "ArrowDown" || event.key == "ArrowLeft" || event.key == "ArrowRight") {
+			console.log("hello, world");
+			 if (event.key == "ArrowUp" || event.key == "ArrowDown" || event.key == "ArrowLeft" || event.key == "ArrowRight") {
 				event.preventDefault()
 				switch (event.key) {
 					case "ArrowUp": document.getElementById("up").click(); break;
@@ -89,7 +90,7 @@
 					case "ArrowLeft": document.getElementById("left").click(); break;
 					case "ArrowRight": document.getElementById("right").click();
 				}
-			}
+			} 
 
 		});
 	</script>
