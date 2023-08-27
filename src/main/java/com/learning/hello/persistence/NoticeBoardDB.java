@@ -23,7 +23,7 @@ public class NoticeBoardDB {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			cnx = DriverManager.getConnection(URI, USERNAME, PASSWORD);
-			System.out.println("db connection successful :)");
+			System.out.println("mydb connection successful :)");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
